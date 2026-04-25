@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="splashBg">#080A0E</color>
+    <color name="gold">#C9A84C</color>
+    <color name="text">#E8EAF2</color>
+    <color name="muted">#5A6380</color>
+</resources>
