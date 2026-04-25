@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Wholeness — A life tracker for spiritual, family, financial, physical, educational, professional, and social growth.">
+<meta name="theme-color" content="#080a0e">
+<title>Wholeness — Life Tracker | Team21 Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Josefin+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #080a0e;
+  --surface: #0e1118;
+  --surface2: #151921;
+  --surface3: #1c2130;
+  --border: #1f2535;
+  --border2: #2a3248;
+  --text: #e8eaf2;
+  --muted: #5a6380;
+  --muted2: #8491b0;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --gold-dim: rgba(201,168,76,0.12);
+  --accent-spirit: #a78bfa;
+  --accent-family: #f472b6;
+  --accent-finance: #34d399;
+  --accent-physical: #60a5fa;
+  --accent-edu: #fbbf24;
+  --accent-pro: #fb923c;
+  --accent-social: #e879f9;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --sidebar-w: 240px;
+  --header-h: 60px;
+  --transition: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+*:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Josefin Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
+}
+button{font-family:inherit;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:var(--muted);}
+
+/* ── SR ONLY ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+/* ─────────────────────────────────────────── */
+/* SPLASH / LOGIN                              */
+/* ─────────────────────────────────────────── */
+#splash{
+  position:fixed;inset:0;z-index:1000;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:24px;padding:32px;text-align:center;
+}
+.splash-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;
+}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;}
+.orb1{width:500px;height:500px;background:rgba(167,139,250,0.08);top:-150px;left:-150px;}
+.orb2{width:400px;height:400px;background:rgba(201,168,76,0.07);bottom:-100px;right:-100px;}
+.splash-emblem{
+  font-size:11px;letter-spacing:6px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:4px;
+  font-family:'Josefin Sans',sans-serif;font-weight:300;
+  position:relative;z-index:1;
+}
+.splash-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:64px;font-weight:300;
+  color:var(--text);letter-spacing:-2px;line-height:1;
+  position:relative;z-index:1;
+}
+.splash-logo span{color:var(--gold);}
+.splash-line{
+  width:60px;height:1px;background:var(--gold);opacity:0.4;
+  margin:4px auto;position:relative;z-index:1;
+}
+.splash-sub{font-size:11px;color:var(--muted2);letter-spacing:4px;text-transform:uppercase;font-weight:300;position:relative;z-index:1;}
+.splash-credit{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:1px;position:relative;z-index:1;}
+.splash-form{display:flex;flex-direction:column;gap:14px;width:100%;max-width:320px;margin-top:16px;position:relative;z-index:1;}
+.splash-field-wrap{position:relative;}
+.splash-form input{
+  background:transparent;
+  border:none;border-bottom:1px solid var(--border2);
+  padding:12px 0;width:100%;
+  color:var(--text);font-family:'Josefin Sans',sans-serif;font-size:14px;
+  outline:none;transition:border-color .3s;letter-spacing:1px;
+  text-align:center;
+}
+.splash-form input::placeholder{color:var(--muted);letter-spacing:2px;font-size:12px;}
+.splash-form input:focus{border-color:var(--gold);}
+.btn-primary{
+  background:transparent;
+  border:1px solid var(--gold);
+  color:var(--gold);
+  font-family:'Josefin Sans',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:4px;text-transform:uppercase;
+  padding:14px 32px;cursor:pointer;
+  transition:all .3s;margin-top:8px;
+}
+.btn-primary:hover{background:var(--gold);color:#080a0e;}
+
+/* ─────────────────────────────────────────── */
+/* HEADER                                       */
+/* ─────────────────────────────────────────── */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,10,14,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;display:flex;align-items:center;height:var(--header-h);
+  justify-content:space-between;gap:16px;
+}
+.header-left{display:flex;align-items:center;gap:14px;min-width:0;flex:1;}
+.menu-toggle{
+  display:none;width:36px;height:36px;border-radius:8px;
+  background:transparent;border:1px solid var(--border2);
+  align-items:center;justify-content:center;cursor:pointer;
+  color:var(--muted2);transition:all .2s;flex-shrink:0;
+}
+.menu-toggle:hover{color:var(--gold);border-color:var(--gold);}
+.menu-toggle svg{width:18px;height:18px;}
+.header-logo{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;
+  color:var(--gold);letter-spacing:1px;display:flex;align-items:center;gap:8px;
+  cursor:pointer;transition:opacity .2s;text-decoration:none;
+  white-space:nowrap;
+}
+.header-logo:hover{opacity:0.85;}
+.header-logo-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+.header-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+.header-user{font-size:11px;color:var(--muted2);letter-spacing:2px;text-transform:uppercase;}
+.header-date{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;}
+.header-btn{
+  cursor:pointer;color:var(--muted2);font-size:11px;
+  letter-spacing:2px;transition:color .2s;
+  text-transform:uppercase;background:none;border:none;padding:6px 8px;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.header-btn:hover{color:var(--gold);}
+
+/* ─────────────────────────────────────────── */
+/* APP LAYOUT                                   */
+/* ─────────────────────────────────────────── */
+.app-body{display:flex;min-height:calc(100vh - var(--header-h));}
+
+/* Sidebar (only visible inside pillar pages) */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  padding:24px 16px;
+  position:sticky;top:var(--header-h);
+  height:calc(100vh - var(--header-h));
+  overflow-y:auto;
+  display:none;
+}
+.app-body.with-sidebar .sidebar{display:block;}
+.sidebar-section-label{
+  font-size:9px;letter-spacing:3px;color:var(--muted);
+  text-transform:uppercase;font-weight:600;
+  padding:0 12px;margin-bottom:10px;
+}
+.sidebar-back{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:var(--radius-sm);
+  color:var(--muted2);font-size:12px;letter-spacing:1.5px;
+  text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all .2s;
+  background:transparent;border:1px solid var(--border2);width:100%;
+  margin-bottom:18px;
+}
+.sidebar-back:hover{color:var(--gold);border-color:var(--gold);background:var(--gold-dim);}
+.sidebar-back svg{width:14px;height:14px;}
+.sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+.sidebar-link{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 12px;border-radius:var(--radius-sm);
+  color:var(--muted2);font-size:13px;letter-spacing:.5px;
+  cursor:pointer;transition:all .2s;
+  background:transparent;border:none;text-align:left;width:100%;
+}
+.sidebar-link:hover{background:var(--surface2);color:var(--text);}
+.sidebar-link.active{background:var(--gold-dim);color:var(--gold);font-weight:600;}
+.sidebar-link.active::before{
+  content:'';width:3px;height:18px;background:var(--gold);
+  border-radius:2px;margin-right:-3px;margin-left:-9px;
+}
+.sidebar-link .ico{font-size:16px;width:20px;text-align:center;}
+.sidebar-divider{height:1px;background:var(--border);margin:14px 8px;}
+
+/* Sidebar overlay for mobile */
+.sidebar-backdrop{
+  display:none;position:fixed;inset:var(--header-h) 0 0 0;
+  background:rgba(0,0,0,0.6);z-index:80;backdrop-filter:blur(2px);
+}
+.sidebar-backdrop.active{display:block;}
+
+/* Main content area */
+main{flex:1;min-width:0;padding-bottom:80px;}
+
+/* ─────────────────────────────────────────── */
+/* HOME / DASHBOARD                             */
+/* ─────────────────────────────────────────── */
+#home{display:none;padding:32px 24px 60px;max-width:1200px;margin:0 auto;}
+#home.active{display:block;}
+
+.welcome-card{
+  background:linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:32px 28px;
+  margin-bottom:32px;
+  position:relative;overflow:hidden;
+}
+.welcome-card::before{
+  content:'';position:absolute;top:0;right:0;width:280px;height:280px;
+  background:radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.welcome-eyebrow{
+  font-size:10px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;font-weight:600;margin-bottom:10px;
+}
+.welcome-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;font-weight:300;line-height:1.15;
+  margin-bottom:12px;letter-spacing:-0.5px;
+}
+.welcome-title .name{color:var(--gold);font-style:italic;}
+.welcome-text{
+  font-size:14px;color:var(--muted2);line-height:1.7;letter-spacing:.3px;
+  max-width:640px;margin-bottom:20px;
+}
+.welcome-text strong{color:var(--text);font-weight:500;}
+.welcome-meta{
+  display:flex;flex-wrap:wrap;gap:20px;
+  padding-top:20px;border-top:1px solid var(--border);
+  font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;
+}
+.welcome-meta-item{display:flex;align-items:center;gap:8px;}
+.welcome-meta-item .dot{width:5px;height:5px;border-radius:50%;background:var(--gold);}
+
+.dashboard-eyebrow{
+  font-size:10px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;font-weight:600;margin-bottom:10px;
+}
+.dashboard-heading{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;
+  margin-bottom:6px;letter-spacing:-0.3px;
+}
+.dashboard-subheading{
+  font-size:12px;color:var(--muted2);letter-spacing:.8px;line-height:1.6;
+  margin-bottom:24px;
+}
+
+.pillar-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:14px;
+}
+.pillar-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px 20px;
+  cursor:pointer;
+  transition:all .3s var(--transition);
+  position:relative;overflow:hidden;
+  text-align:left;
+  display:flex;flex-direction:column;gap:12px;
+  min-height:172px;
+}
+.pillar-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--card-color, var(--gold));
+  opacity:0.6;
+}
+.pillar-card::after{
+  content:'';position:absolute;top:0;right:0;width:120px;height:120px;
+  background:radial-gradient(circle at top right, var(--card-color, var(--gold)), transparent 70%);
+  opacity:0.05;pointer-events:none;
+  transition:opacity .3s;
+}
+.pillar-card:hover{
+  border-color:var(--card-color, var(--gold));
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-md);
+}
+.pillar-card:hover::after{opacity:0.1;}
+.pillar-card-top{display:flex;align-items:center;justify-content:space-between;}
+.pillar-card-icon{
+  font-size:28px;line-height:1;
+  width:48px;height:48px;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.pillar-card-num{
+  font-family:'DM Mono',monospace;
+  font-size:11px;color:var(--muted);letter-spacing:1px;
+}
+.pillar-card-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;line-height:1.2;
+  color:var(--text);
+}
+.pillar-card-desc{
+  font-size:11.5px;color:var(--muted2);letter-spacing:.3px;
+  line-height:1.5;flex:1;
+}
+.pillar-card-stats{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:12px;border-top:1px solid var(--border);
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--muted);
+}
+.pillar-card-stats strong{
+  color:var(--card-color, var(--gold));
+  font-family:'DM Mono',monospace;font-weight:500;
+  font-size:13px;letter-spacing:0;
+}
+.pillar-card-arrow{
+  color:var(--muted);font-size:14px;
+  transition:transform .25s, color .25s;
+}
+.pillar-card:hover .pillar-card-arrow{
+  color:var(--card-color, var(--gold));
+  transform:translateX(3px);
+}
+
+.dashboard-actions{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;
+  padding-top:24px;border-top:1px solid var(--border);
+}
+
+/* ─────────────────────────────────────────── */
+/* PILLAR SECTIONS                              */
+/* ─────────────────────────────────────────── */
+.section{display:none;padding:28px 24px 80px;max-width:780px;margin:0 auto;}
+.section.active{display:block;}
+
+.section-back-row{display:none;margin-bottom:14px;}
+.app-body.with-sidebar .section-back-row{display:none;}
+@media(max-width:880px){
+  .app-body.with-sidebar .section-back-row{display:flex;}
+}
+.section-back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:var(--radius-sm);
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--muted2);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:600;cursor:pointer;
+  transition:all .2s;
+}
+.section-back-btn:hover{color:var(--gold);border-color:var(--gold);}
+.section-back-btn svg{width:12px;height:12px;}
+
+.section-header{margin-bottom:28px;}
+.section-eyebrow{
+  font-size:10px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;font-weight:600;margin-bottom:8px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;
+  margin-bottom:10px;display:flex;align-items:center;gap:14px;line-height:1.1;
+  letter-spacing:-0.5px;
+}
+.section-title .icon-wrap{
+  width:48px;height:48px;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  font-size:24px;
+}
+.section-desc{font-size:13px;color:var(--muted2);letter-spacing:.5px;line-height:1.7;}
+
+/* ─────────────────────────────────────────── */
+/* CARDS                                        */
+/* ─────────────────────────────────────────── */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;margin-bottom:16px;
+  position:relative;overflow:hidden;
+  transition:border-color .2s;
+}
+.card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.015) 0%,transparent 60%);
+  pointer-events:none;
+}
+.card-accent{border-left:2px solid var(--gold);padding-left:20px;}
+.card-title{
+  font-size:11px;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--muted2);
+  margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.card-label{
+  font-size:10px;letter-spacing:2px;color:var(--muted);
+  text-transform:uppercase;margin-bottom:8px;margin-top:14px;font-weight:600;
+}
+.card-label:first-child{margin-top:0;}
+
+/* ─────────────────────────────────────────── */
+/* INPUTS                                       */
+/* ─────────────────────────────────────────── */
+input[type=text],input[type=number],textarea,select.field,.field-date{
+  background:var(--surface2);border:1px solid var(--border2);
+  border-radius:var(--radius-sm);padding:11px 14px;
+  color:var(--text);font-family:'Josefin Sans',sans-serif;font-size:13px;
+  outline:none;transition:border-color .2s,box-shadow .2s;width:100%;
+  letter-spacing:.5px;
+}
+input:focus,textarea:focus,select.field:focus,.field-date:focus{
+  border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,0.08);
+}
+textarea{resize:vertical;min-height:72px;line-height:1.6;}
+select.field option{background:#1c2130;}
+input[type=date].field-date{color-scheme:dark;}
+
+.date-row{display:flex;gap:10px;align-items:center;margin-bottom:0;}
+.date-row input[type=date]{flex:1;}
+.date-quick{
+  font-size:10px;letter-spacing:1px;color:var(--gold);
+  cursor:pointer;padding:11px 12px;border:1px solid var(--border2);
+  border-radius:var(--radius-sm);background:var(--surface2);
+  white-space:nowrap;transition:all .2s;font-weight:600;
+}
+.date-quick:hover{background:var(--gold-dim);border-color:var(--gold);}
+
+/* ─────────────────────────────────────────── */
+/* BUTTONS                                      */
+/* ─────────────────────────────────────────── */
+.btn{
+  padding:10px 18px;border-radius:var(--radius-sm);
+  border:1px solid var(--border2);
+  background:var(--surface2);color:var(--muted2);
+  font-family:'Josefin Sans',sans-serif;
+  font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+  display:inline-flex;align-items:center;gap:6px;justify-content:center;
+}
+.btn:hover{border-color:var(--gold);color:var(--gold);}
+.btn-gold{
+  background:var(--gold);color:#080a0e;border-color:var(--gold);font-weight:700;
+}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2);color:#080a0e;}
+.btn-sm{padding:7px 14px;font-size:9px;letter-spacing:1.5px;}
+.btn-xs{padding:5px 10px;font-size:9px;letter-spacing:1px;}
+
+/* ─────────────────────────────────────────── */
+/* FAMILY MEMBER TAGS                          */
+/* ─────────────────────────────────────────── */
+.member-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px;}
+.member-input-row{display:flex;gap:8px;}
+.member-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--surface3);border:1px solid var(--border2);
+  border-radius:24px;padding:5px 12px;
+  font-size:11px;color:var(--text);letter-spacing:.5px;
+}
+.member-tag-remove{
+  cursor:pointer;color:var(--muted);font-size:14px;line-height:1;
+  transition:color .2s;
+}
+.member-tag-remove:hover{color:#f87171;}
+
+/* ─────────────────────────────────────────── */
+/* GOAL / TASK ITEMS                            */
+/* ─────────────────────────────────────────── */
+.goal-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.goal-item:last-child{border-bottom:none;}
+.goal-check{
+  width:18px;height:18px;min-width:18px;
+  border:1px solid var(--border2);border-radius:4px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;background:var(--surface2);margin-top:1px;
+}
+.goal-check.done{background:var(--gold);border-color:var(--gold);}
+.goal-check.done::after{content:'✓';font-size:11px;color:#080a0e;font-weight:700;}
+.goal-text{flex:1;font-size:13px;line-height:1.5;}
+.goal-text.done{text-decoration:line-through;color:var(--muted);}
+.goal-meta{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:3px;}
+.goal-del{color:var(--muted);cursor:pointer;font-size:16px;transition:color .2s;line-height:1;}
+.goal-del:hover{color:#f87171;}
+
+/* ─────────────────────────────────────────── */
+/* LOG ENTRIES                                  */
+/* ─────────────────────────────────────────── */
+.log-entry{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:14px 0;border-bottom:1px solid var(--border);
+}
+.log-entry:last-child{border-bottom:none;}
+.log-title{font-size:13px;font-weight:600;letter-spacing:.3px;}
+.log-desc{font-size:11px;color:var(--muted2);margin-top:4px;letter-spacing:.5px;line-height:1.5;}
+.log-date{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;margin-top:2px;}
+.log-del{color:var(--muted);cursor:pointer;font-size:14px;transition:color .2s;padding:0 4px;}
+.log-del:hover{color:#f87171;}
+
+/* ─────────────────────────────────────────── */
+/* STATS                                        */
+/* ─────────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:20px;}
+.stat-box{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:14px 12px;text-align:center;
+}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);}
+.stat-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
+
+/* ─────────────────────────────────────────── */
+/* REPORT                                       */
+/* ─────────────────────────────────────────── */
+.report-section{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.report-section:last-child{border-bottom:none;}
+.report-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 0;}
+.report-label{font-size:12px;color:var(--muted2);}
+.report-value{font-size:14px;font-weight:600;color:var(--gold);font-family:'DM Mono',monospace;}
+.report-insight{
+  background:var(--surface2);border:1px solid var(--border);border-left:2px solid var(--gold);
+  border-radius:var(--radius-sm);padding:14px;margin:10px 0;
+  font-size:13px;line-height:1.6;color:var(--muted2);
+}
+
+/* ─────────────────────────────────────────── */
+/* TOAST                                        */
+/* ─────────────────────────────────────────── */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:var(--surface);border:1px solid var(--gold);
+  border-radius:var(--radius-sm);padding:12px 24px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);z-index:9999;box-shadow:var(--shadow-lg);
+  animation:toastIn .3s ease-out,toastOut .3s ease-out 2.2s forwards;
+  white-space:nowrap;
+}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+@keyframes toastOut{from{opacity:1;}to{opacity:0;}}
+
+/* ─────────────────────────────────────────── */
+/* MODAL                                        */
+/* ─────────────────────────────────────────── */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:2000;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:20px;}
+.modal.active{display:flex;}
+.modal-content{
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:var(--radius);padding:28px;
+  max-width:500px;width:100%;max-height:85vh;overflow-y:auto;
+  box-shadow:var(--shadow-lg);
+}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;margin-bottom:4px;}
+.modal-eyebrow{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+.modal-close{float:right;cursor:pointer;font-size:22px;color:var(--muted);transition:color .2s;background:none;border:none;line-height:1;}
+.modal-close:hover{color:var(--text);}
+.export-option{margin:10px 0;}
+.export-option label{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:12px;letter-spacing:1px;color:var(--muted2);}
+.export-option input[type=checkbox]{cursor:pointer;accent-color:var(--gold);}
+
+/* ─────────────────────────────────────────── */
+/* BIBLE TICKER                                 */
+/* ─────────────────────────────────────────── */
+#verse-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(8,10,14,0.97);border-top:1px solid var(--border);
+  padding:10px 20px;z-index:90;
+  display:flex;align-items:center;gap:12px;overflow:hidden;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.verse-icon{font-size:14px;flex-shrink:0;color:var(--gold);}
+.verse-ticker-wrap{flex:1;overflow:hidden;height:20px;}
+.verse-text{
+  font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;
+  color:var(--muted2);white-space:nowrap;
+  animation:verseFade 8s ease-in-out infinite;
+}
+@keyframes verseFade{0%{opacity:0;transform:translateY(6px);}10%{opacity:1;transform:translateY(0);}85%{opacity:1;}100%{opacity:0;}}
+
+/* ─────────────────────────────────────────── */
+/* DIVIDERS                                     */
+/* ─────────────────────────────────────────── */
+.divider{height:1px;background:var(--border);margin:16px 0;}
+.section-sep{
+  display:flex;align-items:center;gap:12px;margin:24px 0 20px;
+}
+.section-sep-line{flex:1;height:1px;background:var(--border);}
+.section-sep-text{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;}
+
+/* ─────────────────────────────────────────── */
+/* GOAL FORM                                    */
+/* ─────────────────────────────────────────── */
+.goal-form{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.goal-form-row{display:flex;gap:8px;}
+.goal-form-row input{flex:1;}
+.goal-priority{display:flex;gap:6px;align-items:center;padding:0 4px;}
+.priority-dot{
+  width:10px;height:10px;border-radius:50%;cursor:pointer;
+  border:2px solid transparent;transition:all .2s;
+}
+.priority-dot.high{background:#f87171;}
+.priority-dot.med{background:var(--gold);}
+.priority-dot.low{background:#34d399;}
+.priority-dot.selected{border-color:var(--text);transform:scale(1.3);}
+
+/* ─────────────────────────────────────────── */
+/* RESPONSIVE                                   */
+/* ─────────────────────────────────────────── */
+@media(max-width:880px){
+  .sidebar{
+    position:fixed;top:var(--header-h);left:0;
+    z-index:90;
+    transform:translateX(-100%);
+    transition:transform .3s var(--transition);
+    box-shadow:var(--shadow-lg);
+    width:280px;
+  }
+  .app-body.with-sidebar .sidebar.open{transform:translateX(0);}
+  .menu-toggle{display:flex;}
+  main{padding-bottom:80px;}
+}
+@media(max-width:640px){
+  header{padding:0 14px;gap:10px;}
+  .header-date{display:none;}
+  .header-user{display:none;}
+  .header-btn{padding:6px 4px;font-size:10px;}
+  .header-logo{font-size:18px;}
+  #home{padding:20px 16px 60px;}
+  .welcome-card{padding:24px 20px;}
+  .welcome-title{font-size:30px;}
+  .welcome-text{font-size:13px;}
+  .welcome-meta{gap:14px;font-size:10px;}
+  .pillar-grid{grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));gap:10px;}
+  .pillar-card{padding:18px 16px;min-height:160px;}
+  .pillar-card-title{font-size:19px;}
+  .pillar-card-icon{width:40px;height:40px;font-size:22px;}
+  .section{padding:18px 14px 80px;}
+  .section-title{font-size:28px;}
+  .section-title .icon-wrap{width:42px;height:42px;font-size:20px;}
+  .stat-value{font-size:26px;}
+  .modal-content{padding:22px;}
+  .modal-title{font-size:22px;}
+}
+@media(max-width:380px){
+  .pillar-grid{grid-template-columns:1fr;}
+  .splash-logo{font-size:52px;}
+}
+
+/* ─────────────────────────────────────────── */
+/* MOTION-REDUCED                               */
+/* ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:0.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:0.01ms!important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- SPLASH / LOGIN                                         -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="splash" role="dialog" aria-labelledby="splash-title">
+  <div class="splash-noise" aria-hidden="true"></div>
+  <div class="orb orb1" aria-hidden="true"></div>
+  <div class="orb orb2" aria-hidden="true"></div>
+  <div class="splash-emblem">Team21 Academy</div>
+  <h1 class="splash-logo" id="splash-title">Whole<span>ness</span></h1>
+  <div class="splash-line" aria-hidden="true"></div>
+  <div class="splash-sub">Life Tracker &nbsp;·&nbsp; Personal Excellence</div>
+  <form class="splash-form" onsubmit="handleLogin(event)">
+    <label class="sr-only" for="username">Your name</label>
+    <input type="text" id="username" placeholder="Enter your name" required autocomplete="off" maxlength="40">
+    <button type="submit" class="btn-primary">Begin Your Journey</button>
+  </form>
+  <div class="splash-credit">© Innocent Forteh &nbsp;·&nbsp; Inno4te Publishing</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- APP                                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="app" style="display:none">
+
+  <header role="banner">
+    <div class="header-left">
+      <button class="menu-toggle" id="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a class="header-logo" onclick="goHome()" role="button" tabindex="0" aria-label="Wholeness home">
+        <span class="header-logo-dot" aria-hidden="true"></span>
+        Wholeness
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="header-user" id="header-user"></div>
+      <div class="header-date" id="header-date"></div>
+      <button class="header-btn" onclick="openReportModal()" aria-label="Open progress report">📊 Report</button>
+      <button class="header-btn" onclick="toggleExportModal()" aria-label="Export data">↓ Export</button>
+      <button class="header-btn" onclick="handleLogout()" aria-label="Log out">Exit</button>
+    </div>
+  </header>
+
+  <div class="app-body" id="app-body">
+
+    <!-- Sidebar (only shown inside pillar pages) -->
+    <aside class="sidebar" id="sidebar" aria-label="Pillar navigation">
+      <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+      <button class="sidebar-back" onclick="goHome()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Back to Home
+      </button>
+      <div class="sidebar-section-label">7 Pillars</div>
+      <nav class="sidebar-nav" id="sidebar-nav"></nav>
+      <div class="sidebar-divider"></div>
+      <div class="sidebar-section-label">Tools</div>
+      <nav class="sidebar-nav">
+        <button class="sidebar-link" onclick="openReportModal()"><span class="ico">📊</span> Full Report</button>
+        <button class="sidebar-link" onclick="toggleExportModal()"><span class="ico">↓</span> Export Data</button>
+      </nav>
+    </aside>
+
+    <main id="main-content">
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- HOME / DASHBOARD                                       -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <div id="home" class="active">
+
+        <div class="welcome-card">
+          <div class="welcome-eyebrow">Welcome Back</div>
+          <h1 class="welcome-title">Hello, <span class="name" id="welcome-name">Friend</span></h1>
+          <p class="welcome-text">
+            <strong>Wholeness</strong> is your private space to nurture every dimension of your life — spirit, family, finances, body, mind, work, and community. Set goals, log your progress, and reflect on your journey toward becoming the person God created you to be.
+          </p>
+          <p class="welcome-text" style="margin-bottom:0">
+            Choose any of the seven areas below to get started. Your data stays on this device, and a daily verse will guide your steps along the way.
+          </p>
+          <div class="welcome-meta">
+            <div class="welcome-meta-item"><span class="dot"></span><span id="welcome-date"></span></div>
+            <div class="welcome-meta-item"><span class="dot"></span>7 Life Pillars</div>
+            <div class="welcome-meta-item"><span class="dot"></span>Private &amp; Local</div>
+          </div>
+        </div>
+
+        <div class="dashboard-eyebrow">Your Dashboard</div>
+        <h2 class="dashboard-heading">The Seven Pillars of Wholeness</h2>
+        <p class="dashboard-subheading">Tap any area to open its dedicated page with goals, activity logs, and insights.</p>
+
+        <div class="pillar-grid" id="pillar-grid"></div>
+
+        <div class="dashboard-actions">
+          <button class="btn" onclick="openReportModal()">📊 Full Progress Report</button>
+          <button class="btn" onclick="toggleExportModal()">↓ Export My Data</button>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- PILLAR PAGES                                            -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+
+      <!-- ====== SPIRIT ====== -->
+      <div id="spirit" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar One</div>
+          <h2 class="section-title"><span class="icon-wrap">🧘</span> Spiritual Wellbeing</h2>
+          <p class="section-desc">Cultivate your inner life — prayer, meditation, reflection, and connection with God.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="spirit-goal-input" placeholder="Add a goal or daily task…" onkeydown="if(event.key==='Enter')addGoal('spirit')">
+            <div class="goal-form-row">
+              <input type="date" id="spirit-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="spirit-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('spirit','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('spirit','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('spirit','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('spirit')">+ Add</button>
+            </div>
+          </div>
+          <div id="spirit-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Activity</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="spirit-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('spirit-log-date')">Today</div>
+          </div>
+          <div class="card-label">Activity Type</div>
+          <select class="field" id="spirit-type">
+            <option>Prayer</option>
+            <option>Bible Study</option>
+            <option>Meditation</option>
+            <option>Journaling</option>
+            <option>Worship</option>
+            <option>Fasting</option>
+            <option>Reflection</option>
+            <option>Church / Fellowship</option>
+            <option>Other</option>
+          </select>
+          <div class="card-label">Duration (minutes)</div>
+          <input type="number" id="spirit-time" placeholder="0" min="0">
+          <div class="card-label">Notes / Reflection</div>
+          <textarea id="spirit-notes" placeholder="What did God reveal to you today?"></textarea>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logSpirit()">Log Activity</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Activity</div>
+          <div id="spirit-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generateSpiritReport()">Generate</button>
+          </div>
+          <div id="spirit-report"></div>
+        </div>
+      </div>
+
+      <!-- ====== FAMILY ====== -->
+      <div id="family" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar Two</div>
+          <h2 class="section-title"><span class="icon-wrap">👨‍👩‍👧</span> Family Connections</h2>
+          <p class="section-desc">Intentionally invest in the people who matter most to you.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="family-goal-input" placeholder="Add a family goal or task…" onkeydown="if(event.key==='Enter')addGoal('family')">
+            <div class="goal-form-row">
+              <input type="date" id="family-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="family-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('family','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('family','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('family','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('family')">+ Add</button>
+            </div>
+          </div>
+          <div id="family-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Family Activity</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="family-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('family-log-date')">Today</div>
+          </div>
+
+          <div class="card-label">Family Members Involved</div>
+          <p style="font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;">Type a name and press Enter or click Add to include them.</p>
+          <div id="family-members-tags" class="member-tags"></div>
+          <div class="member-input-row">
+            <input type="text" id="family-member-input" placeholder="e.g. Sarah, Dad, Grandma…" onkeydown="if(event.key==='Enter'){event.preventDefault();addFamilyMember();}">
+            <button class="btn btn-sm" onclick="addFamilyMember()">Add</button>
+          </div>
+
+          <div class="card-label" style="margin-top:14px">Activity / Engagement</div>
+          <input type="text" id="family-activity" placeholder="e.g. Dinner, Prayer time, Phone call…">
+
+          <div class="card-label">Category</div>
+          <select class="field" id="family-cat">
+            <option>Quality Time</option>
+            <option>Prayer Together</option>
+            <option>Celebration</option>
+            <option>Support & Help</option>
+            <option>Communication</option>
+            <option>Recreation</option>
+            <option>Education Together</option>
+            <option>Other</option>
+          </select>
+
+          <div class="card-label">Notes</div>
+          <textarea id="family-notes" placeholder="How did it go? What impact did it have?"></textarea>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logFamily()">Log Activity</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Activity</div>
+          <div id="family-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generateFamilyReport()">Generate</button>
+          </div>
+          <div id="family-report"></div>
+        </div>
+      </div>
+
+      <!-- ====== FINANCE ====== -->
+      <div id="finance" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar Three</div>
+          <h2 class="section-title"><span class="icon-wrap">💰</span> Financial Health</h2>
+          <p class="section-desc">Steward your resources wisely — spend, save, invest with purpose.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="finance-goal-input" placeholder="Add a financial goal or task…" onkeydown="if(event.key==='Enter')addGoal('finance')">
+            <div class="goal-form-row">
+              <input type="date" id="finance-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="finance-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('finance','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('finance','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('finance','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('finance')">+ Add</button>
+            </div>
+          </div>
+          <div id="finance-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Transaction</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="finance-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('finance-log-date')">Today</div>
+          </div>
+          <div class="card-label">Description</div>
+          <input type="text" id="fin-desc" placeholder="e.g. Grocery shopping, Salary received">
+          <div class="card-label">Amount (FCFA)</div>
+          <input type="number" id="fin-amount" placeholder="0" min="0" step="100">
+          <div class="card-label">Type</div>
+          <select class="field" id="fin-type">
+            <option>Expense</option>
+            <option>Income</option>
+            <option>Savings</option>
+            <option>Investment</option>
+            <option>Tithe / Offering</option>
+          </select>
+          <div class="card-label">Category</div>
+          <select class="field" id="fin-cat">
+            <option>Food & Groceries</option>
+            <option>Transport</option>
+            <option>Utilities</option>
+            <option>Housing</option>
+            <option>Healthcare</option>
+            <option>Education</option>
+            <option>Clothing</option>
+            <option>Entertainment</option>
+            <option>Business</option>
+            <option>Giving</option>
+            <option>Other</option>
+          </select>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logFinance()">Log Transaction</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Transactions</div>
+          <div id="finance-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generateFinanceReport()">Generate</button>
+          </div>
+          <div id="finance-report"></div>
+        </div>
+      </div>
+
+      <!-- ====== PHYSICAL ====== -->
+      <div id="physical" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar Four</div>
+          <h2 class="section-title"><span class="icon-wrap">💪</span> Physical Health</h2>
+          <p class="section-desc">Honor your body — exercise, rest, nutrition, and wellness.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="physical-goal-input" placeholder="Add a health goal or task…" onkeydown="if(event.key==='Enter')addGoal('physical')">
+            <div class="goal-form-row">
+              <input type="date" id="physical-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="physical-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('physical','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('physical','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('physical','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('physical')">+ Add</button>
+            </div>
+          </div>
+          <div id="physical-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Activity</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="physical-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('physical-log-date')">Today</div>
+          </div>
+          <div class="card-label">Activity Type</div>
+          <select class="field" id="phys-type">
+            <option>Exercise / Workout</option>
+            <option>Walking / Running</option>
+            <option>Sleep</option>
+            <option>Nutrition / Diet</option>
+            <option>Hydration</option>
+            <option>Stretching / Yoga</option>
+            <option>Medical Check-up</option>
+            <option>Rest / Recovery</option>
+            <option>Other</option>
+          </select>
+          <div class="card-label">Duration / Amount</div>
+          <input type="text" id="phys-amount" placeholder="e.g. 45 min, 8 glasses, 7 hrs">
+          <div class="card-label">Notes</div>
+          <textarea id="phys-notes" placeholder="How did it go?"></textarea>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logPhysical()">Log Activity</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Activity</div>
+          <div id="physical-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generatePhysicalReport()">Generate</button>
+          </div>
+          <div id="physical-report"></div>
+        </div>
+      </div>
+
+      <!-- ====== EDUCATION ====== -->
+      <div id="edu" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar Five</div>
+          <h2 class="section-title"><span class="icon-wrap">📚</span> Education & Learning</h2>
+          <p class="section-desc">Commit to lifelong growth — read, study, and develop your skills daily.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="edu-goal-input" placeholder="Add a learning goal or task…" onkeydown="if(event.key==='Enter')addGoal('edu')">
+            <div class="goal-form-row">
+              <input type="date" id="edu-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="edu-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('edu','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('edu','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('edu','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('edu')">+ Add</button>
+            </div>
+          </div>
+          <div id="edu-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Learning</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="edu-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('edu-log-date')">Today</div>
+          </div>
+          <div class="card-label">Topic / Subject</div>
+          <input type="text" id="edu-topic" placeholder="What did you study or learn?">
+          <div class="card-label">Time Spent (minutes)</div>
+          <input type="number" id="edu-time" placeholder="0" min="0">
+          <div class="card-label">Type</div>
+          <select class="field" id="edu-type">
+            <option>Reading</option>
+            <option>Video / Online Course</option>
+            <option>Classroom / Training</option>
+            <option>Practice / Application</option>
+            <option>Research</option>
+            <option>Discussion / Mentoring</option>
+            <option>Other</option>
+          </select>
+          <div class="card-label">Key Takeaways</div>
+          <textarea id="edu-notes" placeholder="What did you learn? How will you apply it?"></textarea>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logEdu()">Log Learning</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Learning</div>
+          <div id="edu-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generateEduReport()">Generate</button>
+          </div>
+          <div id="edu-report"></div>
+        </div>
+      </div>
+
+      <!-- ====== PROFESSIONAL ====== -->
+      <div id="pro" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar Six</div>
+          <h2 class="section-title"><span class="icon-wrap">🚀</span> Professional Growth</h2>
+          <p class="section-desc">Achieve with excellence — lead, create, and advance your career with purpose.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="pro-goal-input" placeholder="Add a career goal or task…" onkeydown="if(event.key==='Enter')addGoal('pro')">
+            <div class="goal-form-row">
+              <input type="date" id="pro-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="pro-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('pro','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('pro','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('pro','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('pro')">+ Add</button>
+            </div>
+          </div>
+          <div id="pro-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Achievement</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="pro-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('pro-log-date')">Today</div>
+          </div>
+          <div class="card-label">Activity / Achievement</div>
+          <input type="text" id="pro-activity" placeholder="e.g. Completed project, Led training, Closed deal">
+          <div class="card-label">Category</div>
+          <select class="field" id="pro-cat">
+            <option>Achievement / Win</option>
+            <option>Project Milestone</option>
+            <option>Leadership</option>
+            <option>Training / Development</option>
+            <option>Networking</option>
+            <option>Collaboration</option>
+            <option>Business Development</option>
+            <option>Other</option>
+          </select>
+          <div class="card-label">Notes & Impact</div>
+          <textarea id="pro-notes" placeholder="Details, outcomes, and what you learned…"></textarea>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logPro()">Log Achievement</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Activity</div>
+          <div id="pro-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generateProReport()">Generate</button>
+          </div>
+          <div id="pro-report"></div>
+        </div>
+      </div>
+
+      <!-- ====== SOCIAL ====== -->
+      <div id="social" class="section">
+        <div class="section-back-row">
+          <button class="section-back-btn" onclick="goHome()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Home
+          </button>
+        </div>
+        <div class="section-header">
+          <div class="section-eyebrow">Pillar Seven</div>
+          <h2 class="section-title"><span class="icon-wrap">🌍</span> Social Impact & Community</h2>
+          <p class="section-desc">Be a blessing — serve, contribute, and make a lasting difference.</p>
+        </div>
+
+        <div class="card card-accent">
+          <div class="card-title">Goals & Daily Tasks</div>
+          <div class="goal-form">
+            <input type="text" id="social-goal-input" placeholder="Add a community goal or task…" onkeydown="if(event.key==='Enter')addGoal('social')">
+            <div class="goal-form-row">
+              <input type="date" id="social-goal-date" class="field-date" style="flex:1">
+              <div class="goal-priority" id="social-goal-priority">
+                <div class="priority-dot high" title="High" onclick="selectPriority('social','high',this)"></div>
+                <div class="priority-dot med selected" title="Medium" onclick="selectPriority('social','med',this)"></div>
+                <div class="priority-dot low" title="Low" onclick="selectPriority('social','low',this)"></div>
+              </div>
+              <button class="btn btn-gold btn-sm" onclick="addGoal('social')">+ Add</button>
+            </div>
+          </div>
+          <div id="social-goals-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Log Activity</div>
+          <div class="card-label">Date</div>
+          <div class="date-row">
+            <input type="date" id="social-log-date" class="field-date">
+            <div class="date-quick" onclick="setToday('social-log-date')">Today</div>
+          </div>
+          <div class="card-label">Activity</div>
+          <input type="text" id="soc-activity" placeholder="e.g. Volunteered at shelter, Mentored student">
+          <div class="card-label">Category</div>
+          <select class="field" id="soc-cat">
+            <option>Volunteering</option>
+            <option>Mentoring</option>
+            <option>Community Service</option>
+            <option>Advocacy</option>
+            <option>Outreach</option>
+            <option>Donation / Giving</option>
+            <option>Other</option>
+          </select>
+          <div class="card-label">Notes & Impact</div>
+          <textarea id="soc-notes" placeholder="What impact did you make?"></textarea>
+          <button class="btn btn-gold btn-sm" style="margin-top:12px" onclick="logSocial()">Log Activity</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Recent Activity</div>
+          <div id="soc-log-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>Insights & Report</span>
+            <button class="btn btn-sm" onclick="generateSocialReport()">Generate</button>
+          </div>
+          <div id="social-report"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- REPORT MODAL                                           -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="report-modal" class="modal" role="dialog" aria-labelledby="report-modal-title">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeReportModal()" aria-label="Close report">×</button>
+    <div class="modal-eyebrow">Wholeness Assessment</div>
+    <h2 class="modal-title" id="report-modal-title">Progress Report</h2>
+    <div class="card-label">Date Range</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;">
+      <input type="date" id="report-from" class="field-date" style="flex:1">
+      <input type="date" id="report-to" class="field-date" style="flex:1">
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:16px" onclick="generateFullReport()">Generate Full Report</button>
+    <div id="full-report-output"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- EXPORT MODAL                                           -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="export-modal" class="modal" role="dialog" aria-labelledby="export-modal-title">
+  <div class="modal-content">
+    <button class="modal-close" onclick="toggleExportModal()" aria-label="Close export">×</button>
+    <div class="modal-eyebrow">Data Export</div>
+    <h2 class="modal-title" id="export-modal-title">Export Your Data</h2>
+    <p style="color:var(--muted2);margin-bottom:16px;font-size:12px;letter-spacing:.5px;">Select which pillars to include in your export.</p>
+    <div class="export-option"><label><input type="checkbox" id="export-all" checked onchange="toggleAllExport(this)"> All Pillars (Complete History)</label></div>
+    <div class="divider"></div>
+    <div class="export-option"><label><input type="checkbox" id="export-spirit"> 🧘 Spiritual Wellbeing</label></div>
+    <div class="export-option"><label><input type="checkbox" id="export-family"> 👨‍👩‍👧 Family Connections</label></div>
+    <div class="export-option"><label><input type="checkbox" id="export-finance"> 💰 Financial Health</label></div>
+    <div class="export-option"><label><input type="checkbox" id="export-physical"> 💪 Physical Health</label></div>
+    <div class="export-option"><label><input type="checkbox" id="export-edu"> 📚 Education & Learning</label></div>
+    <div class="export-option"><label><input type="checkbox" id="export-pro"> 🚀 Professional Growth</label></div>
+    <div class="export-option"><label><input type="checkbox" id="export-social"> 🌍 Social Impact</label></div>
+    <button class="btn btn-gold" style="width:100%;margin-top:18px;justify-content:center" onclick="exportData()">↓ Export to CSV</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- BIBLE VERSE BAR                                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div id="verse-bar" role="complementary" aria-label="Daily verse">
+  <div class="verse-icon" aria-hidden="true">✦</div>
+  <div class="verse-ticker-wrap">
+    <div class="verse-text" id="verse-display"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA — UNCHANGED FROM ORIGINAL
+// ============================================================
+let USER_NAME = '';
+const PILLARS = ['spirit','family','finance','physical','edu','pro','social'];
+const PILLAR_META = {
+  spirit:   {label:'Spirit',     fullLabel:'Spiritual Wellbeing',    icon:'🧘', color:'var(--accent-spirit)',   desc:'Cultivate your inner life — prayer, meditation, reflection.', num:'01'},
+  family:   {label:'Family',     fullLabel:'Family Connections',    icon:'👨‍👩‍👧', color:'var(--accent-family)',   desc:'Invest in the people who matter most to you.', num:'02'},
+  finance:  {label:'Finance',    fullLabel:'Financial Health',      icon:'💰', color:'var(--accent-finance)',  desc:'Steward your resources — spend, save, invest.', num:'03'},
+  physical: {label:'Physical',   fullLabel:'Physical Health',       icon:'💪', color:'var(--accent-physical)', desc:'Honor your body — exercise, rest, nutrition.', num:'04'},
+  edu:      {label:'Education',  fullLabel:'Education & Learning',  icon:'📚', color:'var(--accent-edu)',      desc:'Commit to lifelong growth — read, study, develop.', num:'05'},
+  pro:      {label:'Professional',fullLabel:'Professional Growth',  icon:'🚀', color:'var(--accent-pro)',      desc:'Achieve with excellence — lead, create, advance.', num:'06'},
+  social:   {label:'Social',     fullLabel:'Social Impact',         icon:'🌍', color:'var(--accent-social)',   desc:'Be a blessing — serve and make a difference.', num:'07'},
+};
+const BIBLE_VERSES = [
+  '"I can do all things through Christ who strengthens me." — Phil 4:13',
+  '"For I know the plans I have for you, plans to prosper you and not to harm you." — Jer 29:11',
+  '"Commit to the LORD whatever you do, and he will establish your plans." — Prov 16:3',
+  '"Trust in the LORD with all your heart and lean not on your own understanding." — Prov 3:5',
+  '"Be strong and courageous. Do not be afraid; do not be discouraged." — Josh 1:9',
+  '"She is clothed with strength and dignity; she can laugh at the days to come." — Prov 31:25',
+  '"But seek first his kingdom and his righteousness, and all these things will be given." — Matt 6:33',
+  '"The LORD is my shepherd; I shall not want." — Psalm 23:1',
+  '"And we know that in all things God works for the good of those who love him." — Rom 8:28',
+  '"Let your light shine before others, that they may see your good deeds." — Matt 5:16',
+  '"Do not be anxious about anything, but in every situation, by prayer, present your requests to God." — Phil 4:6',
+  '"For God gave us a spirit not of fear but of power and love and self-control." — 2 Tim 1:7',
+  '"The blessing of the LORD brings wealth, without painful toil for it." — Prov 10:22',
+  '"Blessed is the one who does not walk in step with the wicked." — Psalm 1:1',
+  '"Whatever you do, work at it with all your heart, as working for the Lord." — Col 3:23',
+  '"The LORD your God is with you, the Mighty Warrior who saves." — Zeph 3:17',
+  '"Give, and it will be given to you. A good measure, pressed down." — Luke 6:38',
+  '"Beloved, I pray that you may prosper in all things and be in health." — 3 John 1:2',
+  '"No weapon formed against you shall prosper." — Isa 54:17',
+  '"Cast all your anxiety on him because he cares for you." — 1 Pet 5:7',
+  '"The righteous person may have many troubles, but the LORD delivers him from them all." — Psalm 34:19',
+  '"Plans fail for lack of counsel, but with many advisers they succeed." — Prov 15:22',
+];
+
+let verseIndex = 0;
+let currentFamilyMembers = [];
+let priorities = { spirit:'med', family:'med', finance:'med', physical:'med', edu:'med', pro:'med', social:'med' };
+let currentView = 'home'; // 'home' or pillar id
+
+// ============================================================
+// STORAGE — UNCHANGED
+// ============================================================
+function key(k){ return `whn_${USER_NAME}_${k}`; }
+function set(k,v){ try{localStorage.setItem(key(k),JSON.stringify(v));}catch(e){} }
+function get(k,d){ try{const v=localStorage.getItem(key(k));return v?JSON.parse(v):d;}catch(e){return d;} }
+function push(k,v){ const a=get(k,[]); a.push(v); set(k,a); }
+
+// ============================================================
+// AUTH
+// ============================================================
+function handleLogin(e){
+  e.preventDefault();
+  const u = document.getElementById('username').value.trim();
+  if(!u){ toast('Please enter your name'); return; }
+  USER_NAME = u;
+  localStorage.setItem(`whn_${u}_user.name`, u);
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  initApp();
+}
+
+function handleLogout(){
+  if(!confirm('Log out? Your data remains saved.')) return;
+  USER_NAME = '';
+  document.getElementById('splash').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('username').value = '';
+  goHome(true);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function initApp(){
+  updateHeader();
+  setInterval(updateDate, 1000);
+  setAllDatesToToday();
+  buildSidebar();
+  buildPillarGrid();
+  PILLARS.forEach(p => { renderGoals(p); renderLog(p); });
+  startVerseTicker();
+  goHome(true);
+}
+
+function updateHeader(){
+  document.getElementById('header-user').textContent = USER_NAME;
+  document.getElementById('welcome-name').textContent = USER_NAME;
+  // Welcome date
+  const d = new Date();
+  const opts = {weekday:'long',month:'long',day:'numeric',year:'numeric'};
+  document.getElementById('welcome-date').textContent = d.toLocaleDateString('en-US',opts);
+  updateDate();
+}
+
+function updateDate(){
+  const n = new Date();
+  const opts = {weekday:'short',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'};
+  document.getElementById('header-date').textContent = n.toLocaleDateString('en-US',opts);
+}
+
+function setAllDatesToToday(){
+  const today = new Date().toISOString().split('T')[0];
+  PILLARS.forEach(p => {
+    const el = document.getElementById(p+'-log-date');
+    if(el) el.value = today;
+    const el2 = document.getElementById(p+'-goal-date');
+    if(el2) el2.value = today;
+  });
+}
+
+function setToday(id){
+  const el = document.getElementById(id);
+  if(el) el.value = new Date().toISOString().split('T')[0];
+}
+
+// ============================================================
+// NAVIGATION (Home + Pillar pages with sidebar)
+// ============================================================
+function goHome(silent){
+  currentView = 'home';
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('home').classList.add('active');
+  document.getElementById('app-body').classList.remove('with-sidebar');
+  closeSidebar();
+  // Update dashboard stats whenever we land on home
+  updatePillarGridStats();
+  if(!silent) window.scrollTo(0,0);
+  else window.scrollTo(0,0);
+}
+
+function openPillar(pillar){
+  currentView = pillar;
+  document.getElementById('home').classList.remove('active');
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(pillar);
+  if(target) target.classList.add('active');
+  document.getElementById('app-body').classList.add('with-sidebar');
+  // Update sidebar active state
+  document.querySelectorAll('.sidebar-link[data-pillar]').forEach(l => {
+    l.classList.toggle('active', l.dataset.pillar === pillar);
+  });
+  closeSidebar();
+  window.scrollTo(0,0);
+}
+
+function toggleSidebar(){
+  const sb = document.getElementById('sidebar');
+  const bd = document.getElementById('sidebar-backdrop');
+  const tg = document.getElementById('menu-toggle');
+  const open = sb.classList.toggle('open');
+  bd.classList.toggle('active', open);
+  tg.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('active');
+  document.getElementById('menu-toggle').setAttribute('aria-expanded','false');
+}
+
+function buildSidebar(){
+  const nav = document.getElementById('sidebar-nav');
+  if(!nav) return;
+  nav.innerHTML = PILLARS.map(p => {
+    const m = PILLAR_META[p];
+    return `<button class="sidebar-link" data-pillar="${p}" onclick="openPillar('${p}')">
+      <span class="ico">${m.icon}</span>
+      <span>${m.fullLabel}</span>
+    </button>`;
+  }).join('');
+}
+
+function buildPillarGrid(){
+  const grid = document.getElementById('pillar-grid');
+  if(!grid) return;
+  grid.innerHTML = PILLARS.map(p => {
+    const m = PILLAR_META[p];
+    return `<button class="pillar-card" style="--card-color: ${m.color}" onclick="openPillar('${p}')" aria-label="Open ${m.fullLabel}">
+      <div class="pillar-card-top">
+        <div class="pillar-card-icon">${m.icon}</div>
+        <div class="pillar-card-num">${m.num}</div>
+      </div>
+      <div class="pillar-card-title">${m.fullLabel}</div>
+      <div class="pillar-card-desc">${m.desc}</div>
+      <div class="pillar-card-stats">
+        <span><strong id="stat-${p}-goals">0</strong>/<span id="stat-${p}-total">0</span> Goals</span>
+        <span class="pillar-card-arrow">→</span>
+      </div>
+    </button>`;
+  }).join('');
+}
+
+function updatePillarGridStats(){
+  PILLARS.forEach(p => {
+    const goals = get(p+'.goals', []);
+    const done = goals.filter(g => g.done).length;
+    const a = document.getElementById('stat-'+p+'-goals');
+    const b = document.getElementById('stat-'+p+'-total');
+    if(a) a.textContent = done;
+    if(b) b.textContent = goals.length;
+  });
+}
+
+// ============================================================
+// PRIORITY
+// ============================================================
+function selectPriority(pillar, level, el){
+  priorities[pillar] = level;
+  document.querySelectorAll(`#${pillar}-goal-priority .priority-dot`).forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ============================================================
+// GOALS / TASKS
+// ============================================================
+function addGoal(pillar){
+  const input = document.getElementById(pillar+'-goal-input');
+  const dateEl = document.getElementById(pillar+'-goal-date');
+  const text = input.value.trim();
+  if(!text){ toast('Please enter a goal or task'); return; }
+  const goal = {
+    id: Date.now(),
+    text,
+    date: dateEl.value || new Date().toISOString().split('T')[0],
+    priority: priorities[pillar],
+    done: false,
+    created: new Date().toISOString()
+  };
+  push(pillar+'.goals', goal);
+  input.value = '';
+  renderGoals(pillar);
+  toast('✦ Goal added');
+}
+
+function toggleGoal(pillar, id){
+  const goals = get(pillar+'.goals', []);
+  const g = goals.find(x => x.id === id);
+  if(g) g.done = !g.done;
+  set(pillar+'.goals', goals);
+  renderGoals(pillar);
+}
+
+function deleteGoal(pillar, id){
+  const goals = get(pillar+'.goals', []).filter(x => x.id !== id);
+  set(pillar+'.goals', goals);
+  renderGoals(pillar);
+}
+
+function renderGoals(pillar){
+  const goals = get(pillar+'.goals', []);
+  const el = document.getElementById(pillar+'-goals-list');
+  if(!el) return;
+  if(!goals.length){
+    el.innerHTML = '<p style="color:var(--muted);font-size:12px;letter-spacing:1px;padding:8px 0;">No goals yet. Add your first goal above.</p>';
+    return;
+  }
+  const sorted = [...goals].sort((a,b) => {
+    if(a.done !== b.done) return a.done ? 1 : -1;
+    return new Date(a.date) - new Date(b.date);
+  });
+  const prioColor = {high:'#f87171', med:'var(--gold)', low:'#34d399'};
+  el.innerHTML = sorted.map(g => `
+    <div class="goal-item">
+      <div class="goal-check ${g.done?'done':''}" onclick="toggleGoal('${pillar}',${g.id})" role="checkbox" aria-checked="${g.done}" tabindex="0"></div>
+      <div style="flex:1">
+        <div class="goal-text ${g.done?'done':''}">${escapeHtml(g.text)}</div>
+        <div class="goal-meta">
+          ${g.date} &nbsp;·&nbsp;
+          <span style="color:${prioColor[g.priority]||'var(--muted)'}">${(g.priority||'med').toUpperCase()} PRIORITY</span>
+          ${g.done ? '&nbsp;·&nbsp;<span style="color:#34d399">✓ DONE</span>' : ''}
+        </div>
+      </div>
+      <div class="goal-del" onclick="deleteGoal('${pillar}',${g.id})" role="button" aria-label="Delete goal" tabindex="0">×</div>
+    </div>
+  `).join('');
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+}
+
+// ============================================================
+// FAMILY MEMBER TAGS
+// ============================================================
+function addFamilyMember(){
+  const input = document.getElementById('family-member-input');
+  const name = input.value.trim();
+  if(!name) return;
+  if(!currentFamilyMembers.includes(name)) currentFamilyMembers.push(name);
+  input.value = '';
+  renderMemberTags();
+}
+
+function removeFamilyMember(name){
+  currentFamilyMembers = currentFamilyMembers.filter(m => m !== name);
+  renderMemberTags();
+}
+
+function renderMemberTags(){
+  const el = document.getElementById('family-members-tags');
+  el.innerHTML = currentFamilyMembers.map(m =>
+    `<div class="member-tag">${escapeHtml(m)}<span class="member-tag-remove" onclick="removeFamilyMember('${m.replace(/'/g,"\\'")}')">×</span></div>`
+  ).join('');
+}
+
+// ============================================================
+// LOGGING
+// ============================================================
+function getLogDate(pillar){
+  const el = document.getElementById(pillar+'-log-date');
+  return el && el.value ? new Date(el.value+'T12:00:00').toISOString() : new Date().toISOString();
+}
+
+function renderLog(pillar){
+  const fns = {spirit:renderSpiritLog,family:renderFamilyLog,finance:renderFinanceLog,physical:renderPhysicalLog,edu:renderEduLog,pro:renderProLog,social:renderSocLog};
+  if(fns[pillar]) fns[pillar]();
+}
+
+function deleteLog(pillar, id){
+  const logs = get(pillar+'.log', []).filter(x => x.id !== id);
+  set(pillar+'.log', logs);
+  renderLog(pillar);
+}
+
+function logEntryHTML(e, pillar, title, desc){
+  return `<div class="log-entry">
+    <div style="flex:1">
+      <div class="log-title">${escapeHtml(title)}</div>
+      <div class="log-desc">${escapeHtml(desc)}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <div class="log-date">${new Date(e.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</div>
+      <div class="log-del" onclick="deleteLog('${pillar}',${e.id})" role="button" aria-label="Delete entry" tabindex="0">×</div>
+    </div>
+  </div>`;
+}
+
+// SPIRIT
+function logSpirit(){
+  const type = document.getElementById('spirit-type').value;
+  const time = parseInt(document.getElementById('spirit-time').value)||0;
+  const notes = document.getElementById('spirit-notes').value.trim();
+  push('spirit.log',{id:Date.now(),type,time,notes,date:getLogDate('spirit')});
+  document.getElementById('spirit-time').value='';
+  document.getElementById('spirit-notes').value='';
+  renderSpiritLog(); toast('🧘 Spiritual activity logged');
+}
+function renderSpiritLog(){
+  const log=get('spirit.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('spirit-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No activities logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>logEntryHTML(e,'spirit',e.type,`${e.time||0} min${e.notes?' — '+e.notes:''}`)).join('');
+}
+
+// FAMILY
+function logFamily(){
+  const activity = document.getElementById('family-activity').value.trim();
+  const cat = document.getElementById('family-cat').value;
+  const notes = document.getElementById('family-notes').value.trim();
+  const members = [...currentFamilyMembers];
+  if(!activity){toast('Enter an activity');return;}
+  push('family.log',{id:Date.now(),activity,cat,members,notes,date:getLogDate('family')});
+  document.getElementById('family-activity').value='';
+  document.getElementById('family-notes').value='';
+  currentFamilyMembers=[];
+  renderMemberTags();
+  renderFamilyLog(); toast('👨‍👩‍👧 Family activity logged');
+}
+function renderFamilyLog(){
+  const log=get('family.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('family-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No activities logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>{
+    const memberStr = e.members&&e.members.length ? `With: ${e.members.join(', ')} · ` : '';
+    return logEntryHTML(e,'family',e.activity,memberStr+e.cat+(e.notes?' — '+e.notes:''));
+  }).join('');
+}
+
+// FINANCE
+function logFinance(){
+  const desc=document.getElementById('fin-desc').value.trim();
+  const amount=parseFloat(document.getElementById('fin-amount').value)||0;
+  const type=document.getElementById('fin-type').value;
+  const cat=document.getElementById('fin-cat').value;
+  if(!desc){toast('Enter a description');return;}
+  push('finance.log',{id:Date.now(),desc,amount,type,cat,date:getLogDate('finance')});
+  document.getElementById('fin-desc').value='';
+  document.getElementById('fin-amount').value='';
+  renderFinanceLog(); toast('💰 Transaction logged');
+}
+function renderFinanceLog(){
+  const log=get('finance.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('finance-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No transactions logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>logEntryHTML(e,'finance',e.desc,`${e.type} · ${e.cat} · ${e.amount.toLocaleString()} FCFA`)).join('');
+}
+
+// PHYSICAL
+function logPhysical(){
+  const type=document.getElementById('phys-type').value;
+  const amount=document.getElementById('phys-amount').value.trim();
+  const notes=document.getElementById('phys-notes').value.trim();
+  push('physical.log',{id:Date.now(),type,amount,notes,date:getLogDate('physical')});
+  document.getElementById('phys-amount').value='';
+  document.getElementById('phys-notes').value='';
+  renderPhysicalLog(); toast('💪 Physical activity logged');
+}
+function renderPhysicalLog(){
+  const log=get('physical.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('physical-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No activities logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>logEntryHTML(e,'physical',e.type,`${e.amount||''}${e.notes?' — '+e.notes:''}`)).join('');
+}
+
+// EDUCATION
+function logEdu(){
+  const topic=document.getElementById('edu-topic').value.trim();
+  const time=parseInt(document.getElementById('edu-time').value)||0;
+  const type=document.getElementById('edu-type').value;
+  const notes=document.getElementById('edu-notes').value.trim();
+  if(!topic){toast('Enter a topic');return;}
+  push('edu.log',{id:Date.now(),topic,time,type,notes,date:getLogDate('edu')});
+  document.getElementById('edu-topic').value='';
+  document.getElementById('edu-time').value='';
+  document.getElementById('edu-notes').value='';
+  renderEduLog(); toast('📚 Learning logged');
+}
+function renderEduLog(){
+  const log=get('edu.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('edu-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No learning logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>logEntryHTML(e,'edu',e.topic,`${e.type} · ${e.time||0} min${e.notes?' — '+e.notes:''}`)).join('');
+}
+
+// PROFESSIONAL
+function logPro(){
+  const activity=document.getElementById('pro-activity').value.trim();
+  const cat=document.getElementById('pro-cat').value;
+  const notes=document.getElementById('pro-notes').value.trim();
+  if(!activity){toast('Enter an activity');return;}
+  push('pro.log',{id:Date.now(),activity,cat,notes,date:getLogDate('pro')});
+  document.getElementById('pro-activity').value='';
+  document.getElementById('pro-notes').value='';
+  renderProLog(); toast('🚀 Achievement logged');
+}
+function renderProLog(){
+  const log=get('pro.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('pro-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No activities logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>logEntryHTML(e,'pro',e.activity,`${e.cat}${e.notes?' — '+e.notes:''}`)).join('');
+}
+
+// SOCIAL
+function logSocial(){
+  const activity=document.getElementById('soc-activity').value.trim();
+  const cat=document.getElementById('soc-cat').value;
+  const notes=document.getElementById('soc-notes').value.trim();
+  if(!activity){toast('Enter an activity');return;}
+  push('social.log',{id:Date.now(),activity,cat,notes,date:getLogDate('social')});
+  document.getElementById('soc-activity').value='';
+  document.getElementById('soc-notes').value='';
+  renderSocLog(); toast('🌍 Activity logged');
+}
+function renderSocLog(){
+  const log=get('social.log',[]).slice().reverse().slice(0,20);
+  const el=document.getElementById('soc-log-list');
+  if(!el) return;
+  if(!log.length){el.innerHTML='<p style="color:var(--muted);font-size:12px;letter-spacing:1px">No activities logged yet.</p>';return;}
+  el.innerHTML=log.map(e=>logEntryHTML(e,'social',e.activity,`${e.cat}${e.notes?' — '+e.notes:''}`)).join('');
+}
+
+// ============================================================
+// REPORTS — UNCHANGED
+// ============================================================
+function analyzeData(logArray, from, to){
+  const f = from ? new Date(from) : null;
+  const t = to ? new Date(to) : null;
+  const filtered = logArray.filter(e => {
+    const d = new Date(e.date);
+    if(f && d < f) return false;
+    if(t && d > t) return false;
+    return true;
+  });
+  const today = new Date();
+  const thisMonth = logArray.filter(e => {
+    const d=new Date(e.date);
+    return d.getMonth()===today.getMonth()&&d.getFullYear()===today.getFullYear();
+  });
+  const thisWeek = logArray.filter(e => (today-new Date(e.date))/(86400000)<=7);
+  return {count:logArray.length, filtered:filtered.length, thisMonth:thisMonth.length, thisWeek:thisWeek.length};
+}
+
+function reportHTML(stats, insight, extra=''){
+  return `
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-value">${stats.count}</div><div class="stat-label">All Time</div></div>
+      <div class="stat-box"><div class="stat-value">${stats.thisMonth}</div><div class="stat-label">This Month</div></div>
+      <div class="stat-box"><div class="stat-value">${stats.thisWeek}</div><div class="stat-label">This Week</div></div>
+    </div>
+    ${extra}
+    <div class="report-insight">${insight}</div>
+  `;
+}
+
+function generateSpiritReport(){
+  const log=get('spirit.log',[]);
+  const goals=get('spirit.goals',[]);
+  const s=analyzeData(log);
+  const totalMin=log.reduce((a,e)=>a+(e.time||0),0);
+  const done=goals.filter(g=>g.done).length;
+  const insight=s.thisMonth>0
+    ? `✨ You've completed ${s.thisMonth} spiritual practice${s.thisMonth!==1?'s':''} this month, investing ${totalMin} total minutes. ${done}/${goals.length} goals achieved.`
+    : '💡 Start logging your spiritual practices to track your growth journey with God.';
+  document.getElementById('spirit-report').innerHTML=reportHTML(s,insight,
+    `<div class="report-section"><div class="report-stat"><div class="report-label">Total Minutes</div><div class="report-value">${totalMin}</div></div><div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div></div>`
+  );
+}
+
+function generateFamilyReport(){
+  const log=get('family.log',[]);
+  const goals=get('family.goals',[]);
+  const s=analyzeData(log);
+  const done=goals.filter(g=>g.done).length;
+  const members=new Set();
+  log.forEach(e=>{if(e.members)e.members.forEach(m=>members.add(m));});
+  const insight=s.thisMonth>0
+    ? `❤️ You engaged with your family ${s.thisMonth} time${s.thisMonth!==1?'s':''} this month. Members involved: ${[...members].join(', ')||'various'}. ${done}/${goals.length} goals achieved.`
+    : '💡 Begin logging family activities to strengthen your most important relationships.';
+  document.getElementById('family-report').innerHTML=reportHTML(s,insight,
+    `<div class="report-section"><div class="report-stat"><div class="report-label">Family Members</div><div class="report-value">${members.size}</div></div><div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div></div>`
+  );
+}
+
+function generateFinanceReport(){
+  const log=get('finance.log',[]);
+  const goals=get('finance.goals',[]);
+  const s=analyzeData(log);
+  const income=log.filter(e=>e.type==='Income').reduce((a,e)=>a+e.amount,0);
+  const expense=log.filter(e=>e.type==='Expense').reduce((a,e)=>a+e.amount,0);
+  const savings=log.filter(e=>e.type==='Savings').reduce((a,e)=>a+e.amount,0);
+  const done=goals.filter(g=>g.done).length;
+  const insight=s.thisMonth>0
+    ? `💰 This month: ${s.thisMonth} transactions. Net: ${(income-expense).toLocaleString()} FCFA. Savings: ${savings.toLocaleString()} FCFA.`
+    : '💡 Log transactions daily to build a clear picture of your financial health.';
+  document.getElementById('finance-report').innerHTML=reportHTML(s,insight,
+    `<div class="stats-grid" style="margin-bottom:12px">
+      <div class="stat-box"><div class="stat-value" style="font-size:18px">${income.toLocaleString()}</div><div class="stat-label">Income (FCFA)</div></div>
+      <div class="stat-box"><div class="stat-value" style="font-size:18px;color:#f87171">${expense.toLocaleString()}</div><div class="stat-label">Expenses</div></div>
+      <div class="stat-box"><div class="stat-value" style="font-size:18px;color:#34d399">${savings.toLocaleString()}</div><div class="stat-label">Savings</div></div>
+    </div>`
+  );
+}
+
+function generatePhysicalReport(){
+  const log=get('physical.log',[]);
+  const goals=get('physical.goals',[]);
+  const s=analyzeData(log);
+  const done=goals.filter(g=>g.done).length;
+  const insight=s.thisMonth>0
+    ? `💪 ${s.thisMonth} physical activities logged this month. ${done}/${goals.length} goals achieved. Keep moving!`
+    : '💡 Start logging workouts, meals, and sleep to track your physical wellbeing.';
+  document.getElementById('physical-report').innerHTML=reportHTML(s,insight,
+    `<div class="report-section"><div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div></div>`
+  );
+}
+
+function generateEduReport(){
+  const log=get('edu.log',[]);
+  const goals=get('edu.goals',[]);
+  const s=analyzeData(log);
+  const totalMin=log.reduce((a,e)=>a+(e.time||0),0);
+  const done=goals.filter(g=>g.done).length;
+  const insight=s.thisMonth>0
+    ? `📚 ${s.thisMonth} learning sessions this month · ${totalMin} total minutes invested in your growth. ${done}/${goals.length} goals achieved.`
+    : '💡 Log your learning sessions — books, courses, training — to track your development.';
+  document.getElementById('edu-report').innerHTML=reportHTML(s,insight,
+    `<div class="report-section"><div class="report-stat"><div class="report-label">Total Learning Minutes</div><div class="report-value">${totalMin}</div></div><div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div></div>`
+  );
+}
+
+function generateProReport(){
+  const log=get('pro.log',[]);
+  const goals=get('pro.goals',[]);
+  const s=analyzeData(log);
+  const done=goals.filter(g=>g.done).length;
+  const insight=s.thisMonth>0
+    ? `🚀 ${s.thisMonth} professional activities logged this month. ${done}/${goals.length} goals achieved. You're building something remarkable!`
+    : '💡 Track achievements, milestones, and professional activities to see your career trajectory.';
+  document.getElementById('pro-report').innerHTML=reportHTML(s,insight,
+    `<div class="report-section"><div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div></div>`
+  );
+}
+
+function generateSocialReport(){
+  const log=get('social.log',[]);
+  const goals=get('social.goals',[]);
+  const s=analyzeData(log);
+  const done=goals.filter(g=>g.done).length;
+  const insight=s.thisMonth>0
+    ? `🌍 ${s.thisMonth} community contributions this month. ${done}/${goals.length} goals achieved. You're making a real difference!`
+    : '💡 Log community service, mentoring, and social activities to track your positive impact.';
+  document.getElementById('social-report').innerHTML=reportHTML(s,insight,
+    `<div class="report-section"><div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div></div>`
+  );
+}
+
+// ============================================================
+// FULL REPORT MODAL — UNCHANGED
+// ============================================================
+function openReportModal(){
+  const today = new Date().toISOString().split('T')[0];
+  const firstOfMonth = today.substring(0,8)+'01';
+  document.getElementById('report-from').value = firstOfMonth;
+  document.getElementById('report-to').value = today;
+  document.getElementById('report-modal').classList.add('active');
+}
+function closeReportModal(){ document.getElementById('report-modal').classList.remove('active'); }
+
+function generateFullReport(){
+  const from = document.getElementById('report-from').value;
+  const to = document.getElementById('report-to').value;
+  const el = document.getElementById('full-report-output');
+
+  let html = `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+    <div style="font-size:11px;letter-spacing:2px;color:var(--muted);margin-bottom:4px">PERIOD</div>
+    <div style="font-family:'DM Mono',monospace;font-size:12px">${from} → ${to}</div>
+  </div>`;
+
+  PILLARS.forEach(p => {
+    const log = get(p+'.log', []);
+    const goals = get(p+'.goals', []);
+    const filtered = log.filter(e => {
+      const d = new Date(e.date);
+      const f = from ? new Date(from) : null;
+      const t = to ? new Date(to+'T23:59:59') : null;
+      if(f && d < f) return false;
+      if(t && d > t) return false;
+      return true;
+    });
+    const done = goals.filter(g => g.done).length;
+    const meta = PILLAR_META[p];
+
+    html += `<div class="report-section">
+      <div style="font-size:11px;letter-spacing:3px;color:${meta.color};margin-bottom:10px;font-weight:600;text-transform:uppercase">${meta.icon} ${meta.fullLabel}</div>
+      <div class="report-stat"><div class="report-label">Activities in Period</div><div class="report-value">${filtered.length}</div></div>
+      <div class="report-stat"><div class="report-label">Goals Completed</div><div class="report-value">${done}/${goals.length}</div></div>
+    </div>`;
+  });
+
+  const totalGoals = PILLARS.reduce((a,p) => a+get(p+'.goals',[]).length, 0);
+  const totalDone = PILLARS.reduce((a,p) => a+get(p+'.goals',[]).filter(g=>g.done).length, 0);
+  const totalLogs = PILLARS.reduce((a,p) => {
+    return a + get(p+'.log',[]).filter(e => {
+      const d=new Date(e.date); const f=from?new Date(from):null; const t=to?new Date(to+'T23:59:59'):null;
+      if(f&&d<f)return false; if(t&&d>t)return false; return true;
+    }).length;
+  }, 0);
+
+  html = `<div class="stats-grid" style="margin-bottom:16px">
+    <div class="stat-box"><div class="stat-value">${totalLogs}</div><div class="stat-label">Total Entries</div></div>
+    <div class="stat-box"><div class="stat-value">${totalDone}</div><div class="stat-label">Goals Done</div></div>
+    <div class="stat-box"><div class="stat-value">${totalGoals}</div><div class="stat-label">Total Goals</div></div>
+  </div>` + html;
+
+  el.innerHTML = html;
+}
+
+// ============================================================
+// EXPORT — UNCHANGED
+// ============================================================
+function toggleExportModal(){ document.getElementById('export-modal').classList.toggle('active'); }
+function toggleAllExport(cb){
+  ['spirit','family','finance','physical','edu','pro','social'].forEach(p => {
+    document.getElementById('export-'+p).checked = cb.checked;
+  });
+}
+
+function exportData(){
+  let csv = `WHOLENESS TRACKER — DATA EXPORT\nUser: ${USER_NAME}\nExported: ${new Date().toLocaleString()}\n© Innocent Forteh · Team21 Academy · Inno4te Publishing\n\n`;
+  const cats = [
+    {key:'spirit',name:'Spiritual Wellbeing',id:'export-spirit'},
+    {key:'family',name:'Family Connections',id:'export-family'},
+    {key:'finance',name:'Financial Health',id:'export-finance'},
+    {key:'physical',name:'Physical Health',id:'export-physical'},
+    {key:'edu',name:'Education & Learning',id:'export-edu'},
+    {key:'pro',name:'Professional Growth',id:'export-pro'},
+    {key:'social',name:'Social Impact',id:'export-social'},
+  ];
+  const exportAll = document.getElementById('export-all').checked;
+
+  cats.forEach(c => {
+    if(!exportAll && !document.getElementById(c.id).checked) return;
+    const logs = get(c.key+'.log', []);
+    const goals = get(c.key+'.goals', []);
+    csv += `\n\n=== ${c.name.toUpperCase()} ===\n`;
+    if(goals.length){
+      csv += `\nGOALS:\nDate,Priority,Status,Goal\n`;
+      goals.forEach(g => {
+        csv += `${g.date},${g.priority||'med'},${g.done?'Done':'Pending'},"${g.text}"\n`;
+      });
+    }
+    if(logs.length){
+      csv += `\nACTIVITY LOG:\nDate,`;
+      const keys = Object.keys(logs[0]).filter(k=>k!=='date'&&k!=='id');
+      csv += keys.join(',')+'\n';
+      logs.forEach(e => {
+        csv += `${new Date(e.date).toLocaleDateString()},`;
+        csv += keys.map(k => {
+          const v = Array.isArray(e[k]) ? e[k].join(';') : (e[k]||'');
+          return String(v).includes(',') ? `"${v}"` : v;
+        }).join(',')+'\n';
+      });
+    }
+  });
+
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `wholeness_${USER_NAME}_${new Date().toISOString().split('T')[0]}.csv`;
+  link.style.display='none';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  toast('✦ Exported successfully');
+  toggleExportModal();
+}
+
+// ============================================================
+// BIBLE VERSE TICKER — UNCHANGED
+// ============================================================
+function startVerseTicker(){
+  const el = document.getElementById('verse-display');
+  function show(){
+    el.style.animation='none';
+    el.offsetHeight; // reflow
+    el.textContent = BIBLE_VERSES[verseIndex % BIBLE_VERSES.length];
+    el.style.animation='verseFade 8s ease-in-out infinite';
+    verseIndex++;
+  }
+  show();
+  setInterval(show, 8000);
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(msg){
+  const el=document.createElement('div');
+  el.className='toast'; el.textContent=msg;
+  el.setAttribute('role','status');
+  el.setAttribute('aria-live','polite');
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 2600);
+}
+
+// ============================================================
+// MODAL CLOSE ON ESC / BACKDROP
+// ============================================================
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+    closeSidebar();
+  }
+});
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) m.classList.remove('active'); });
+});
+
+// ============================================================
+// STARTUP
+// ============================================================
+window.addEventListener('DOMContentLoaded', () => {
+  const stored = Object.keys(localStorage).find(k => k.match(/^whn_(.+)_user\.name$/));
+  if(stored){
+    USER_NAME = localStorage.getItem(stored);
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    initApp();
+  }
+});
+</script>
+</body>
+</html>
